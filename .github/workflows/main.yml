@@ -5,12 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Unzip Source Code
+      run: unzip "lingoengine (1).zip"
+      
     - uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-    - run: chmod +x ./gradlew
-    - run: ./gradlew assembleDebug
+        
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      
+    - name: Build APK
+      run: gradle assembleDebug
+      
     - uses: actions/upload-artifact@v3
       with:
         name: Yazen-Lingo-APK
